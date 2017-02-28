@@ -23,10 +23,57 @@ function StringNumeralSystem(chars) {
         });
     }
 
-    function increment(value) {
+    function validateValue(value) {
         if (!isValueValid(value)) {
             throw new Error('Invalid number, allowed characters: ' + chars);
         }
+    }
+
+    function max(a, b) {
+        validateValue(a);
+        validateValue(b);
+
+        if (a.length > b.length) {
+            return a;
+        }
+
+        if (a.length < b.length) {
+            return b;
+        }
+
+        let max = a;
+
+        Array.from(a).some((charA, index) => {
+            const charB = b[index];
+            const charAIndex = chars.indexOf(charA);
+            const charBIndex = chars.indexOf(charB);
+
+            if (charAIndex === charBIndex) {
+                return false;
+            }
+
+            if (charAIndex > charBIndex) {
+                max = a;
+            } else {
+                max = b;
+            }
+
+            return true;
+        });
+
+        return max;
+    }
+
+    function min(a, b) {
+        if (max(a, b) === a) {
+            return b;
+        }
+
+        return a;
+    }
+
+    function increment(value) {
+        validateValue(value);
 
         let result = '';
 
@@ -52,7 +99,9 @@ function StringNumeralSystem(chars) {
 
     return {
         increment,
-        decrement
+        decrement,
+        max,
+        min
     }
 }
 

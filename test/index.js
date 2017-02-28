@@ -22,4 +22,18 @@ describe('interface', function () {
             sns.increment('abz');
         }, /Invalid number, allowed characters: 1abc/)
     })
+
+    it('max', () => {
+        assert.strictEqual(sns.max('bc', 'c1'), 'c1')
+        assert.strictEqual(sns.max('1', '1'), '1')
+        assert.strictEqual(sns.max('ccc', 'bcbc'), 'bcbc')
+        assert.strictEqual(sns.max('ccc', 'cc1'), 'ccc')
+    })
+
+    it('min', () => {
+        assert.strictEqual(sns.min('bc', 'c1'), 'bc')
+        assert.strictEqual(sns.min('1', '1'), '1')
+        assert.strictEqual(sns.min('ccc', 'bcbc'), 'ccc')
+        assert.strictEqual(sns.min('ccc', 'cc1'), 'cc1')
+    })
 })
